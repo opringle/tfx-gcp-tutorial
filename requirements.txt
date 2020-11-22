@@ -1,2 +1,3 @@
 tfx==0.25.0
 kfp==1.1.1
+python-dotenv==0.15.0
