@@ -3,3 +3,5 @@
 *.pyc
 .vscode
 .idea
+data
+notebooks/.ipynb_checkpoints
