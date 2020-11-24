@@ -1,11 +1,11 @@
-from config import EnvironmentConfiguration
-from model import MyModel
 import pathlib
 import pandas as pd
 import numpy as np
-from typing import List
 from sklearn.model_selection import train_test_split
 import logging
+from typing import List
+
+from src import EnvironmentConfiguration, TrainingConfiguration, BaseModel
 
 
 def load_data() -> pd.DataFrame:
@@ -33,9 +33,10 @@ def split_df(df: pd.DataFrame) -> List[pd.DataFrame]:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     env_config = EnvironmentConfiguration()
+    training_config = TrainingConfiguration()
     dataframe = preprocess_data(load_data())
     train_df, val_df, test_df = split_df(dataframe)
-    model = MyModel()
+    model = BaseModel.create(training_config)
     model.fit(train_df, val_df=val_df)
     loss, accuracy = model.evaluate(test_df)
     logging.info("Accuracy {}".format(accuracy))
