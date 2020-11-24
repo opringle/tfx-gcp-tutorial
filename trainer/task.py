@@ -1,13 +1,8 @@
 import logging
 
-from src import (
-    EnvironmentConfiguration, 
-    TrainingConfiguration, 
-    BaseModel,
-    preprocess_data,
-    load_data,
-    split_df
-)
+from .config import EnvironmentConfiguration, TrainingConfiguration
+from .model import BaseModel
+from .data import preprocess_data, load_data, split_df
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

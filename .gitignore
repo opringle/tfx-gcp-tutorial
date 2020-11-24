@@ -5,3 +5,5 @@
 .idea
 datasets
 notebooks/.ipynb_checkpoints
+dist
+build
