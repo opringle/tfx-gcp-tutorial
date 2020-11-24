@@ -9,7 +9,7 @@ from .config import TrainingConfiguration
 class BaseModel:
     @classmethod
     def create(cls, config: TrainingConfiguration):
-        model_type = TrainingConfiguration.model_type
+        model_type = config.model_type
         if model_type == 'keras':
             model = OllieModel(config)
         else:
