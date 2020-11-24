@@ -2,7 +2,6 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow import feature_column, keras
 from tensorflow.keras import layers
-from typing import List
 
 from .config import TrainingConfiguration
 
@@ -26,10 +25,11 @@ class BaseModel:
 class OllieModel(BaseModel):
     def __init__(self, config: TrainingConfiguration):
         self.config = config
+        self.model = None
 
-    def _df_to_dataset(self, df: pd.DataFrame, shuffle=True, batch_size=32) -> tf.data.Dataset:
+    @staticmethod
+    def _df_to_dataset(df: pd.DataFrame, shuffle=True, batch_size=32) -> tf.data.Dataset:
         df = df.copy()
-        features = tf.convert_to_tensor(df['Age'].values)
         labels = tf.convert_to_tensor(df.pop('target').values)
         ds = tf.data.Dataset.from_tensor_slices(
             (df.to_dict(orient='list'), labels)
@@ -39,7 +39,8 @@ class OllieModel(BaseModel):
         ds = ds.batch(batch_size)
         return ds
 
-    def _get_tf_feature_cols(self, dataframe: pd.DataFrame):
+    @staticmethod
+    def _get_tf_feature_cols(dataframe: pd.DataFrame):
         feature_columns = []
 
         # numeric cols

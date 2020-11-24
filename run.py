@@ -14,8 +14,8 @@ if __name__ == '__main__':
     env_config = EnvironmentConfiguration()
     training_config = TrainingConfiguration()
 
-    dataframe = preprocess_data(load_data())
-    train_df, val_df, test_df = split_df(dataframe)
+    df = preprocess_data(load_data())
+    train_df, val_df, test_df = split_df(df)
     
     model = BaseModel.create(training_config)
     model.fit(train_df, val_df=val_df)
