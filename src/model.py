@@ -15,8 +15,8 @@ class BaseModel:
         else:
             raise ValueError('Bad model type {}'.format(model_type))
         return model
-    
-    def fit(self, data: pd.DataFrame):
+
+    def fit(self, train_df: pd.DataFrame, val_df=None):
         raise NotImplementedError
 
     def evaluate(self, data: pd.DataFrame):
