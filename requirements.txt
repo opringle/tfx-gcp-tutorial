@@ -1,3 +1,4 @@
 tfx==0.25.0
 kfp==1.1.1
 python-dotenv==0.15.0
+google-cloud-storage==1.33.0

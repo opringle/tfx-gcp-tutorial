@@ -33,20 +33,16 @@ JOB_DIR=gs://${BUCKET_NAME}/keras-job-dir # TODO Change BUCKET_NAME to your buck
 # or use the default '`us-central1`'. The region is where the model will be deployed.
 REGION=us-central1
 PYTHON_VERSION=3.7
-RUNTIME_VERSION=2.1
-TRAIN_STEPS=1000
-EVAL_STEPS=100
+RUNTIME_VERSION=2.2
 
 CONFIG_FILE=hptuning_config.yaml # Add --config ${CONFIG_FILE} for Hyperparameter tuning
 
 
 gcloud ai-platform jobs submit training "${JOB_NAME}" \
-  --package-path trainer/ \
+  --package-path ./trainer \
   --module-name trainer.task \
   --region ${REGION} \
   --python-version $PYTHON_VERSION \
   --runtime-version $RUNTIME_VERSION \
   --job-dir "${JOB_DIR}" \
   --stream-logs -- \
-  --train-steps=${TRAIN_STEPS} \
-  --eval-steps=${EVAL_STEPS} \
