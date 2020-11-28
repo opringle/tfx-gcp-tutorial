@@ -10,8 +10,10 @@ class EnvironmentConfiguration:
 class TrainingConfiguration:
     def __init__(
         self,
+        train_data_file: str,
         model_type='keras',
-        epochs=10
+        epochs=10,
     ):
+        self.train_data_file=train_data_file
         self.model_type = model_type
         self.epochs = epochs

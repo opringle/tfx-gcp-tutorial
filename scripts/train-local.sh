@@ -5,17 +5,12 @@ set -ev
 
 echo "Training local ML model"
 
-DATE=$(date '+%Y%m%d_%H%M%S')
-MODEL_DIR=/tmp/trained_models/census_$DATE
-PACKAGE_PATH=./src
-
-export TRAIN_STEPS=1000
-export EVAL_STEPS=100
+BUCKET_NAME=ai-platform-bucket-ollie
+JOB_DIR=gs://${BUCKET_NAME}/keras-job-dir
 
 gcloud ai-platform local train \
-        --module-name=trainer.task \
-        --package-path=${PACKAGE_PATH} \
+        --package-path ./trainer \
+        --module-name trainer.task \
+        --job-dir ${JOB_DIR} \
         -- \
-        --train-steps=${TRAIN_STEPS} \
-        --eval-steps=${EVAL_STEPS} \
-        --job-dir="${MODEL_DIR}"
+        --train-data-file ./data/df.pickle \

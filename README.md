@@ -2,7 +2,7 @@
 
 Google scale production grade ML pipelines of GCP Ai Engine using Tensorflow Extended.
 
-## Set up your environment
+## Prerequisites
 
 - create & activate python 3.8.6 virtual environment with pyenv - `pyenv virtualenv 3.8.6 tfx && pyenv activate tfx`
 - install required python packages - `pip install -r requirements.txt`
@@ -12,7 +12,7 @@ Google scale production grade ML pipelines of GCP Ai Engine using Tensorflow Ext
 
 ## Run the code
 
-- Preprocess data, pickle and upload to storage
+- Preprocess data, pickle and upload to storage bucket
 
 ```bash
     bash scripts/preprocess.sh
@@ -24,13 +24,19 @@ Google scale production grade ML pipelines of GCP Ai Engine using Tensorflow Ext
     bash scripts/train-local.sh
 ```
 
-## ToDo
-
-- Train in the cloud (the code requires a local .env file which isn't there so shits itself)
+- Train on a single node on GCP Ai Engine
 
 ```bash
     bash scripts/train-cloud.sh
 ```
+
+- Run tensorboard to inspect training
+
+```bash
+    tensorboard --logdir=$GCS_JOB_DIR
+```
+
+## ToDo
 
 
 - View training process with tensorboard

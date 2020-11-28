@@ -41,8 +41,9 @@ CONFIG_FILE=hptuning_config.yaml # Add --config ${CONFIG_FILE} for Hyperparamete
 gcloud ai-platform jobs submit training "${JOB_NAME}" \
   --package-path ./trainer \
   --module-name trainer.task \
+  --job-dir ${JOB_DIR} \
   --region ${REGION} \
   --python-version $PYTHON_VERSION \
   --runtime-version $RUNTIME_VERSION \
-  --job-dir "${JOB_DIR}" \
-  --stream-logs -- \
+  -- \
+  --train-data-file gs://ai-platform-bucket-ollie/data/df.pickle \
