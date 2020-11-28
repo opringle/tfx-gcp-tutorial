@@ -2,6 +2,8 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow import feature_column, keras
 from tensorflow.keras import layers
+from tensorflow.keras.callbacks import TensorBoard
+import os 
 
 from .config import TrainingConfiguration
 
@@ -73,11 +75,13 @@ class OllieModel(BaseModel):
         train_ds = self._df_to_dataset(train_df)
         val_ds = self._df_to_dataset(val_df)
         feature_cols = self._get_tf_feature_cols(train_df)
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=os.path.join(self.config.job_dir, 'logs'))
         self.model = KerasModel(feature_cols=feature_cols)
         self.model.fit(
             train_ds,
             validation_data=val_ds,
-            epochs=self.config.epochs
+            epochs=self.config.epochs,
+            callbacks=[tensorboard_callback],
         )
 
     def evaluate(self, df: pd.DataFrame):

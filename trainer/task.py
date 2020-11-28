@@ -31,6 +31,7 @@ def parse_args() -> TrainingConfiguration:
     args = parser.parse_args()
     config = TrainingConfiguration(
         train_data_file=args.train_data_file,
+        job_dir=args.job_dir,
     )
     return config
 
