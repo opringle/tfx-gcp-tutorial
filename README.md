@@ -1,6 +1,6 @@
-# Preprocess, train & tune models on GCP at scale
+# Efficient ML development at scale with GCP
 
-Opinionated sample code for machine learning on GCP Ai Engine
+Efficient workflow to research, develop and productionalize machine learning applications at scale on GCP Ai Engine.
 
 ## Prerequisites
 
@@ -88,9 +88,10 @@ This application uses a custom docker container to run the application on Ai Eng
 - Everytime I modify my application training code, I have to rebuild and push my docker container. This workflow is a pain in the arse. There must be a better way. What if I package the application, rather than copying the files over during the docker build? That way I can make modifications to code without needing to rebuild the container. 
 ## ToDo
 
+- Drastically speed up workflow
+- Tune hyperparameters
 - Train on multiple gpus
 - Distribute training across multiple machines and gpus
-- Tune hyperparameters
 - Refactor
 - Deploy for scalable prediction
 - Refactor

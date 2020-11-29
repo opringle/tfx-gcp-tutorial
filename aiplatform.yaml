@@ -1,0 +1,39 @@
+# see - https://cloud.google.com/ai-platform/training/docs/reference/rest/v1/projects.jobs#TrainingInput
+trainingInput:
+  
+  scaleTier: BASIC  # STANDARD_1, PREMIUM_1, BASIC_GPU
+  # masterType: n1-highcpu-16
+  # workerType: n1-highcpu-16
+  # parameterServerType: n1-highmem-8
+  # evaluatorType: n1-highcpu-16
+  # workerCount: 9
+  # parameterServerCount: 3
+  # evaluatorCount: 1
+  
+  # hyperparameters:
+  #   goal: MAXIMIZE
+  #   hyperparameterMetricTag: metric1
+  #   maxTrials: 30
+  #   maxParallelTrials: 1
+  #   enableTrialEarlyStopping: True
+  #   params:
+  #   - parameterName: hidden1
+  #     type: INTEGER
+  #     minValue: 40
+  #     maxValue: 400
+  #     scaleType: UNIT_LINEAR_SCALE
+  #   - parameterName: numRnnCells
+  #     type: DISCRETE
+  #     discreteValues:
+  #     - 1
+  #     - 2
+  #     - 3
+  #     - 4
+  #   - parameterName: rnnCellType
+  #     type: CATEGORICAL
+  #     categoricalValues:
+  #     - BasicLSTMCell
+  #     - BasicRNNCell
+  #     - GRUCell
+  #     - LSTMCell
+  #     - LayerNormBasicLSTMCell

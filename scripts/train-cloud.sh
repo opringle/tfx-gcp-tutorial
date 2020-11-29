@@ -21,5 +21,6 @@ gcloud ai-platform jobs submit training "${JOB_NAME}" \
   --master-image-uri gcr.io/${PROJECT_ID}/${IMAGE_TAG} \
   --job-dir $JOB_DIR \
   --region $REGION \
+  --config aiplatform.yaml
   -- \
   --train-data-file gs://ai-platform-bucket-ollie/data/df.pickle \
