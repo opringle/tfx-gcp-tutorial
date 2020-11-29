@@ -39,7 +39,7 @@ Opinionated sample code for machine learning on GCP Ai Engine
 - Run the training package locally
 
 ```bash
-    python -m trainer.task --train-data-file ./data/df.pickle --job-dir=poop
+    python -m trainer.task --train-data-file ./data/df.pickle --job-dir=./
 ```
 
 - Run the training package locally with Ai Platform CLI
@@ -85,10 +85,9 @@ This application uses a custom docker container to run the application on Ai Eng
 - Your built docker image can be multiple Gbs. Pushing this to Container Registry can take >30mins. Instead use Cloud Build to build and push much faster.
 ## Issues
 
-- Everytime I modify my application training code, I have to rebuild and push my docker container. This workflow is a pain in the arse. There must be a better way. What if I package the application, rather than copying the files over during the docker build?
+- Everytime I modify my application training code, I have to rebuild and push my docker container. This workflow is a pain in the arse. There must be a better way. What if I package the application, rather than copying the files over during the docker build? That way I can make modifications to code without needing to rebuild the container. 
 ## ToDo
 
-- View training process with tensorboard
 - Train on multiple gpus
 - Distribute training across multiple machines and gpus
 - Tune hyperparameters

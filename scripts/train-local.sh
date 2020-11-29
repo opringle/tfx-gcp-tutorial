@@ -5,8 +5,9 @@ set -ev
 
 echo "Training local ML model"
 
+# save model artifacts to GCP
 BUCKET_NAME=ai-platform-bucket-ollie
-JOB_DIR=./
+JOB_DIR=gs://${BUCKET_NAME}/keras-job-dir
 
 gcloud ai-platform local train \
         --package-path ./trainer \
