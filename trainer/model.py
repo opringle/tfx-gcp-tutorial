@@ -77,7 +77,7 @@ class OllieModel(BaseModel):
         val_ds = self._df_to_dataset(val_df)
         feature_cols = self._get_tf_feature_cols(train_df)
         tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=os.path.join(self.config.job_dir, 'logs'))
-        strategy = tf.distribute.MirroredStrategy()
+        strategy = tf.distribute.MirroredStrategy()  # support multi device training
         logging.info('Number of devices: {}'.format(strategy.num_replicas_in_sync))
         with strategy.scope():
             self.model = KerasModel(feature_cols=feature_cols)

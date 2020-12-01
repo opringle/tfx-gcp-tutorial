@@ -87,8 +87,7 @@ This application uses a custom docker container to run the application on Ai Eng
 
 ## ToDo
 
-- Train on a single machine with multiple gpus
 - Distribute training across multiple machines and gpus
-- Refactor
-- Deploy for scalable prediction
-- Drastically speed up workflow
+- Refactor code
+- Deploy model for prediction
+- Deploy cloud function to handle requests
