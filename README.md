@@ -1,6 +1,6 @@
 # Efficient ML development at scale with GCP
 
-Efficient workflow to research, develop and productionalize machine learning applications at scale on GCP Ai Engine.
+Efficient workflow to research, develop and deploy machine learning applications at scale on GCP Ai Engine.
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@ Efficient workflow to research, develop and productionalize machine learning app
 - Run the training package locally
 
 ```bash
-    python -m trainer.task --train-data-file ./data/df.pickle --job-dir=./
+    python -m trainer.task --train-data-file ./data/df.pickle --job-dir=./ --epochs=10
 ```
 
 - Run the training package locally with Ai Platform CLI
@@ -56,7 +56,7 @@ This application uses a custom docker container to run the application on Ai Eng
 
 ```bash
     docker build -t tfx .
-    docker run tfx --train-data-file data/df.pickle --job-dir poop
+    docker run tfx --train-data-file data/df.pickle --job-dir ./ --epochs 10
 ```
 
 - Once you're confident the application runs as expected, build and push to Container Registry using Cloud Build (~10X faster than building and pushing locally)
@@ -65,10 +65,10 @@ This application uses a custom docker container to run the application on Ai Eng
     gcloud builds submit --config cloudbuild.yaml .
 ```
 
-- Fire up tensorboard and point to directory logs are being written to on GCP
+- Fire up tensorboard and point to directory logs will be written to on GCP
 
 ```bash
-    tensorboard --logdir=gs://ai-platform-bucket-ollie/keras-job-dir/logs
+    tensorboard --logdir=gs://ai-platform-bucket-ollie/keras-job-dir
 ```
 
 - Train on a single node on GCP Ai Engine
@@ -77,21 +77,24 @@ This application uses a custom docker container to run the application on Ai Eng
     bash scripts/train-cloud.sh
 ```
 
+- Tune hyperparameters on a single node on GCP Ai Engine
+
+```bash
+    bash scripts/tune-cloud.sh
+```
+
 ## Notes
 
-- Your training code must be configurable through command line arguments.
-- Using a custom docker image saves development time because you can robustly test your application locally before running in the cloud. Using predefined runtime typically results in many failed attempts to get a job running due to discrepancies between the container GCP runs your code in your local development environment.
-- Configure your application to train from a GCP storage bucket *and* local files, otherwise you will have to save training data into your docker image (which doesn't scale)
-- Your built docker image can be multiple Gbs. Pushing this to Container Registry can take >30mins. Instead use Cloud Build to build and push much faster.
-## Issues
+- Your training module must be configurable through command line arguments.
+- Using a custom docker image:
+  - Saves development time because you can robustly test your application locally before running in the cloud. Using predefined runtime typically results in many failed attempts to get a job running due to discrepancies between the container GCP runs your code in your local development environment.
+  - Allows you to use any frameworks you want.
+- Configure your application to train from both GCP resources (eg storage bucket) *and* local files, otherwise you will have to save training data into your docker image (which doesn't scale)
 
-- Everytime I modify my application training code, I have to rebuild and push my docker container. This workflow is a pain in the arse. There must be a better way. What if I package the application, rather than copying the files over during the docker build? That way I can make modifications to code without needing to rebuild the container. 
 ## ToDo
 
-- Drastically speed up workflow
-- Tune hyperparameters
-- Train on multiple gpus
+- Train on a single machine with multiple gpus
 - Distribute training across multiple machines and gpus
 - Refactor
 - Deploy for scalable prediction
-- Refactor
+- Drastically speed up workflow
