@@ -12,10 +12,14 @@ class TrainingConfiguration:
         self,
         train_data_file: str,
         job_dir: str,
+        epochs: int,
+        batch_size: int,
+        distribution_strategy: str,
         model_type='keras',
-        epochs=10,
     ):
         self.train_data_file=train_data_file
         self.job_dir=job_dir
-        self.model_type = model_type
         self.epochs = epochs
+        self.batch_size = batch_size
+        self.distribution_strategy = distribution_strategy
+        self.model_type = model_type

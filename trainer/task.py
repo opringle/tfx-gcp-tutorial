@@ -18,6 +18,18 @@ def parse_args() -> TrainingConfiguration:
 
     group = parser.add_argument_group('hyperparameters')
     group.add_argument('--epochs', type=int, required=True)
+    group.add_argument('--batch-size', type=int, required=True)
+
+    group = parser.add_argument_group('compute')
+    group.add_argument(
+        '--distribution-strategy', 
+        type=str, 
+        default=None,
+        choices=[
+            'MirroredStrategy',
+            'MultiWorkerMirroredStrategy'
+        ],
+    )
     
     group = parser.add_argument_group('artifacts')
     group.add_argument(
@@ -41,7 +53,9 @@ def parse_args() -> TrainingConfiguration:
     config = TrainingConfiguration(
         train_data_file=args.train_data_file,
         job_dir=args.job_dir,
-        epochs=args.epochs
+        epochs=args.epochs,
+        batch_size=args.batch_size,
+        distribution_strategy=args.distribution_strategy,
     )
     return config
 

@@ -29,6 +29,12 @@ class OllieModel(BaseModel):
     def __init__(self, config: TrainingConfiguration):
         self.config = config
         self.model = None
+        if self.config.distribution_strategy == 'MirroredStrategy':
+            self.strategy = tf.distribute.MirroredStrategy()
+        elif self.config.distribution_strategy == 'MultiWorkerMirroredStrategy':
+            self.strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
+        else:
+            self.strategy = tf.distribute.OneDeviceStrategy(device="/gpu:0")
 
     @staticmethod
     def _df_to_dataset(df: pd.DataFrame, shuffle=True, batch_size=32) -> tf.data.Dataset:
@@ -73,13 +79,24 @@ class OllieModel(BaseModel):
         return feature_columns
         
     def fit(self, train_df: pd.DataFrame, val_df=None):
-        train_ds = self._df_to_dataset(train_df)
-        val_ds = self._df_to_dataset(val_df)
+        train_ds = self._df_to_dataset(
+            train_df,
+            shuffle=True,
+            batch_size=self.config.batch_size,
+        )
+        val_ds = self._df_to_dataset(
+            val_df,
+            shuffle=False,
+            batch_size=self.config.batch_size,
+        )
         feature_cols = self._get_tf_feature_cols(train_df)
         tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=os.path.join(self.config.job_dir, 'logs'))
-        strategy = tf.distribute.MirroredStrategy()  # support multi device training
-        logging.info('Number of devices: {}'.format(strategy.num_replicas_in_sync))
-        with strategy.scope():
+        logging.info(
+            'Number of devices: {}'.format(
+                self.strategy.num_replicas_in_sync
+            )
+        )
+        with self.strategy.scope():
             self.model = KerasModel(feature_cols=feature_cols)
             self.model.fit(
                 train_ds,

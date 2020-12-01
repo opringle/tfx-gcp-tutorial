@@ -16,3 +16,4 @@ gcloud ai-platform local train \
         -- \
         --train-data-file ./data/df.pickle \
         --epochs 3 \
+        --batch-size 512 \

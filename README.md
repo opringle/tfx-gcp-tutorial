@@ -77,6 +77,18 @@ This application uses a custom docker container to run the application on Ai Eng
     bash scripts/tune-cloud.sh
 ```
 
+- Train on a single node with multiple GPUs on GCP Ai Engine
+
+```bash
+    bash scripts/train-cloud-multi-gpu.sh
+```
+
+- Train on a multiple nodes with multiple GPUs on GCP Ai Engine
+
+```bash
+    bash scripts/train-cloud-multi-worker-multi-gpu.sh
+```
+
 ## Notes
 
 - Your training module must be configurable through command line arguments.
@@ -88,6 +100,8 @@ This application uses a custom docker container to run the application on Ai Eng
 ## ToDo
 
 - Distribute training across multiple machines and gpus
+- Remove data from dockerfile
+- Add distributed training best practices
 - Refactor code
 - Deploy model for prediction
 - Deploy cloud function to handle requests
