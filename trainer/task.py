@@ -1,7 +1,7 @@
 import logging
 import pandas as pd
 import argparse
-from hypertune import Hypertune
+import hypertune
 import sys
 import os
 
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     loss, accuracy = model.evaluate(test_df)
     logging.info("Accuracy {}".format(accuracy))
 
-    hpt = HyperTune()
+    hpt = hypertune.HyperTune()
     hpt.report_hyperparameter_tuning_metric(
         hyperparameter_metric_tag='accuracy',
         metric_value=accuracy,
