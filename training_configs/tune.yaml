@@ -1,0 +1,15 @@
+# see - https://cloud.google.com/ai-platform/training/docs/reference/rest/v1/projects.jobs#TrainingInput
+trainingInput:
+  scaleTier: BASIC
+  hyperparameters:
+    goal: MAXIMIZE
+    hyperparameterMetricTag: accuracy
+    maxTrials: 6
+    maxParallelTrials: 2
+    enableTrialEarlyStopping: True
+    params:
+    - parameterName: epochs
+      type: INTEGER
+      minValue: 3
+      maxValue: 40
+      scaleType: UNIT_LINEAR_SCALE
