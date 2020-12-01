@@ -36,12 +36,6 @@ Efficient workflow to research, develop and deploy machine learning applications
     tensorboard --logdir=./logs
 ```
 
-- Run the training package locally
-
-```bash
-    python -m trainer.task --train-data-file ./data/df.pickle --job-dir=./ --epochs=10
-```
-
 - Run the training package locally with Ai Platform CLI
 
 ```bash
@@ -59,7 +53,7 @@ This application uses a custom docker container to run the application on Ai Eng
     docker run tfx --train-data-file data/df.pickle --job-dir ./ --epochs 10
 ```
 
-- Once you're confident the application runs as expected, build and push to Container Registry using Cloud Build (~10X faster than building and pushing locally)
+- Once you're confident the application runs as expected, build and push to Container Registry using Cloud Build (much faster than building and pushing locally)
 
 ```bash
     gcloud builds submit --config cloudbuild.yaml .
