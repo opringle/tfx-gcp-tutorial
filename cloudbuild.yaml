@@ -1,4 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker pull gcr.io/tfx-tutorial-ollie/tfx:latest || exit 0']
+- name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/tfx-tutorial-ollie/tfx', '--cache-from', 'gcr.io/tfx-tutorial-ollie/tfx:latest', '.']
-images: ['gcr.io/tfx-tutorial-ollie/tfx']
+images: ['gcr.io/tfx-tutorial-ollie/tfx:latest']
