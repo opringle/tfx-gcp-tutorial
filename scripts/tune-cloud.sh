@@ -2,7 +2,7 @@
 # This scripts performs cloud training for a TensorFlow model.
 set -v
 
-echo "Training Cloud ML model"
+echo "Tuning Cloud ML model"
 
 DATE=$(date '+%Y%m%d_%H%M%S')
 BUCKET_NAME=ai-platform-bucket-ollie
@@ -21,7 +21,6 @@ gcloud ai-platform jobs submit training "${JOB_NAME}" \
   --master-image-uri gcr.io/${PROJECT_ID}/${IMAGE_TAG} \
   --job-dir $JOB_DIR \
   --region $REGION \
-  --config training_configs/train.yaml \
+  --config training_configs/tune.yaml \
   -- \
   --train-data-file gs://ai-platform-bucket-ollie/data/df.pickle \
-  --epochs 3 \

@@ -15,3 +15,4 @@ gcloud ai-platform local train \
         --job-dir ${JOB_DIR} \
         -- \
         --train-data-file ./data/df.pickle \
+        --epochs 3 \
